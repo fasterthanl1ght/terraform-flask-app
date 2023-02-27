@@ -110,9 +110,9 @@ resource "aws_autoscaling_group" "web" {
 
 resource "aws_elb" "web" {
   name = "Web-HA-ELB"
-  availability_zones = [ data.aws_availability_zones.available.names[0],
-                         data.aws_availability_zones.available.names[1],
-                         data.aws_availability_zones.available.names[2] ]
+  availability_zones = [ data.aws_availability_zones.available.names[1],
+                         data.aws_availability_zones.available.names[2],
+                         data.aws_availability_zones.available.names[3] ]
   security_groups = [ aws_security_group.web.id ]
 
   listener {
@@ -136,14 +136,14 @@ resource "aws_elb" "web" {
 }
 
 resource "aws_default_subnet" "default_az1" {
-  availability_zone = data.aws_availability_zones.available.names[0]
+  availability_zone = data.aws_availability_zones.available.names[1]
 }
 
 resource "aws_default_subnet" "default_az2" {
-  availability_zone = data.aws_availability_zones.available.names[1]
+  availability_zone = data.aws_availability_zones.available.names[2]
 }
 
 # only if your Region has more than 2 AZs
 resource "aws_default_subnet" "default_az3" {
-  availability_zone = data.aws_availability_zones.available.names[2]  
+  availability_zone = data.aws_availability_zones.available.names[3]  
 }
